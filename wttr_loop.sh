@@ -22,7 +22,7 @@ _locs=($@)
 # printf "$2\n"
 
 _dir="$HOME/.weather/cache/"
-_interval=20    # seconds delay between wttr.in api calls
+_interval=60    # seconds delay between wttr.in api calls
 
 # loop through the list of places with wttr function
 for i in "${!_locs[@]}"; do
