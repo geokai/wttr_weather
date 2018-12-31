@@ -4,32 +4,31 @@
 # Author: George Kaimakis - https://github.com/geokai
 
 
-# usage function
-# _usage () {
-#     printf "  %b\n" ""\
-#                     "USAGE:"\
-#                     ""
-# }
-
-
-# positional parameters: could also include a file with a list of places
-unset _locs
-_locs=($@)
-# _locs=(highgate+london falmouth+uk)
-# printf "%b\n" "item:" "${_locs[@]}"
-# printf "%b\n" "# of items: ${#_locs[@]}"
-# printf "$1\n"
-# printf "$2\n"
-
-_dir="$HOME/.weather/cache/"
-_interval=60    # seconds delay between wttr.in api calls
-
-# loop through the list of places with wttr function
-for i in "${!_locs[@]}"; do
-    # echo "processing: ${_locs[i]}"
-    wttr_cron.sh ~${_locs[i]}?QM0 ${_dir}${_locs[i]%\+*}.txt;
-    [ "${i}" -lt $((${#_locs[@]}-1)) ] && sleep ${_interval};
-done
+usage function
+_usage () {
+    printf "  %b\n"
+        ""\
+        "${1%%.*}  version: ${VERSION}  created: ${CREATED}"\
+        ""\
+        "Usage: ${1##*/} [-hvVd]"\
+        ""\
+        "  -t            Set the date option"\
+        "                If TZ info is added to location string, the"\
+        "                location time is given"\
+        "  -v            Verbose mode - displays ${1%%.*} version info"\
+        "  -V            Very Verbose Mode - debug output displayed"\
+        "  -c            Print the location of the script configuration file"\
+        "  -h            Help - display this message and exit"\
+        ""\
+        ""\
+        "This shell script is interpreted with the ${SHEBANG#*!} shell."\
+        ""\
+        "author: ${AUTHOR}"\
+        "email : ${EMAIL}"\
+        "repos : ${REPO}"\
+        ""\
+        "\"AutoContent\" enabled"\
+        ""\
 
 # call the main function with all the positional parameters passed
 # _run_main "$@"
