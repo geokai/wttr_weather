@@ -26,9 +26,9 @@ wttr_loop highgate+london boston+usa
   By default, the delay is set to 60 seconds.
   This is implemented to avoid 'spamming' the api.
 
-- the script will merge the <location> with the necessary flags to
+- the script will merge the \<location> with the necessary flags to
   generate a single current weather report,
-  the api flags, ~<location>?QM0 are used
+  the api flags \~\<location>?QM0 are used,
   the '~' generates location infomation including coordinates
 
 - the response to each request is redirected into its individual
@@ -40,10 +40,11 @@ wttr_loop highgate+london boston+usa
 
 #### the arguments format as files
 
-e.g. highgate+london
-     boston+usa
+e.g.\
+highgate+london\
+boston+usa
 
-     each location on a separate line, a place and city or city and country
+     each location on a separate line, a place and city, or, city and country
      separated by a '+' no spaces.
 
 
