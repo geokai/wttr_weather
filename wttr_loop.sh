@@ -38,10 +38,8 @@ _usage () {
     #############################################################
     #### usage function
     #### 
+    _get_name_version "${0}"
     printf "  %b\n"\
-        ""\
-        "$(basename ${1%.*})  version: ${VERSION}  created: ${CREATED}"\
-        ""\
         "Usage: $(basename ${1%.*}) [OPTION] [LOCATIONS...]"\
         "Retreve weather report from the wttr.in api and save the info"\
         "to a text file."\
@@ -114,8 +112,9 @@ _date () {
 }
 
 
-_run_main () {
+_get_name_version () {
     #############################################################
+    #### prints the script name and version number
     #### 
     printf "  %b\n"\
     ""\
@@ -184,7 +183,7 @@ _run_main () {
     #### with bash -x
     #### 
     (( VERYVERB == TRUE )) && set -x
-    (( VERBOSE == TRUE )) && _configure_wttr_loop ${CONF_FILE}
+    (( VERBOSE == TRUE )) && _get_name_version "${0}"; return 0;
 
 
     #############################################################
