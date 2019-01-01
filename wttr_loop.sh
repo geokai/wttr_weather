@@ -4,6 +4,36 @@
 # Author: George Kaimakis - https://github.com/geokai
 
 
+#################################################################
+#### 
+#### Description:
+#### 
+#### Place a full text description of your shell function here.
+#### 
+#### Assumptions:
+#### 
+#### Provide a list of assumptions your shell function makes,
+#### with a description of each assumption.
+#### 
+#### Dependencies:
+#### 
+#### Provide a list of dependencies your shell function has,
+#### with a description of each dependency.
+#### 
+#### Products:
+#### 
+#### Provide a list of output your shell function produces,
+#### with a description of each product.
+#### 
+#### Configured Usage:
+#### 
+#### Describe how your shell function should be used.
+#### 
+#### Details:
+#### 
+#################################################################
+
+
 _usage () {
     #############################################################
     #### usage function
@@ -77,7 +107,8 @@ _configure_wttr_loop () {
 
 _date () {
     #############################################################
-    #### this function generates the date to be added the output
+    #### this function generates the date to be added to the
+    #### output
     #### 
     :
 }
@@ -86,6 +117,15 @@ _date () {
 _run_main () {
     #############################################################
     #### 
+    printf "  %b\n"\
+    ""\
+    "$(basename ${1%.*})  version: ${VERSION}  created: ${CREATED}"\
+    ""
+}
+
+
+_run_main () {
+    #############################################################
     #### main function
     #### 
 
@@ -142,6 +182,7 @@ _run_main () {
     #### note: xtrace will commence from this point,
     #### for xtrace of entire script execution run
     #### with bash -x
+    #### 
     (( VERYVERB == TRUE )) && set -x
     (( VERBOSE == TRUE )) && _configure_wttr_loop ${CONF_FILE}
 
@@ -157,7 +198,7 @@ _run_main () {
     #### loop through the list of places with wttr function
     #### 
     for i in "${!_locs[@]}"; do
-        # implement <_date> function
+        # TODO implement <_date> function
         wttr_cron ~${_locs[i]}?QM0 ${_dir}${_locs[i]%\+*}.txt;
         [ "${i}" -lt $((${#_locs[@]}-1)) ] && sleep ${_interval};
     done
