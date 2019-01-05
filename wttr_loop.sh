@@ -201,6 +201,13 @@ _run_main () {
 
 
     #############################################################
+    #### check if lcations have been provided and exit if not
+    #### 
+    [[ -z "${_locs}" ]] && { printf " %b\n" "# no location provided!";\
+                            _usage  "${0}" "${VERSION}"; return 1; }
+
+
+    #############################################################
     #### loop through the list of places with wttr function
     #### 
     for i in "${!_locs[@]}"; do
