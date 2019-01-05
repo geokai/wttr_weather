@@ -103,12 +103,15 @@ _configure_wttr_loop () {
 }
 
 
-_date () {
+_get_date () {
     #############################################################
     #### this function generates the date to be added to the
     #### output
     #### 
-    :
+    printf "%b\n"\
+    ""\
+    "# $(TZ=${_tzone:-${_utc}} date -R)"\
+    ""
 }
 
 
@@ -133,11 +136,14 @@ _run_main () {
     #### 
     declare TRUE="1"
     declare FALSE="0"
+    declare _date="${FALSE}"
     declare VERBOSE="${FALSE}"
     declare VERYVERB="${FALSE}"
     declare -g CONF_LOCATION="$HOME/bin/.config"
     declare -g CONF_FILE="${CONF_LOCATION}/wttr_loop.conf"
     declare -g VERSION="0.01.01"   # 0.00.00 - major.minor.patch
+    declare -g _utc="Europe/London"
+    declare -g _tzone=
 
 
     #############################################################
@@ -155,7 +161,7 @@ _run_main () {
     #### 
     while getopts ":hvVcd" OPTION; do
         case "${OPTION}" in
-            d) _date="${TRUE}" ;;
+            d) _date="${TRUE}"; _tzone="${2}" ;;
             v) VERBOSE="${TRUE}" ;;
             V) VERYVERB="${TRUE}" ;;
             c) printf "  %b\n" "" "# configuateion file: ${CONF_FILE}" ""\
@@ -185,6 +191,7 @@ _run_main () {
     (( VERYVERB == TRUE )) && set -x
     (( VERBOSE == TRUE )) && _get_name_version "${0}"; return 0;
 
+    (( _date == TRUE )) &&  { _get_date "${_tzone}"; return 0; }
 
     #############################################################
     #### asign the remaining positional arguments
