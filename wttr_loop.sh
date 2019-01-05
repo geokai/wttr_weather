@@ -189,7 +189,7 @@ _run_main () {
     #### with bash -x
     #### 
     (( VERYVERB == TRUE )) && set -x
-    (( VERBOSE == TRUE )) && _get_name_version "${0}"; return 0;
+    (( VERBOSE == TRUE )) && { _get_name_version "${0}"; return 0; }
 
     (( _date == TRUE )) &&  { _get_date "${_tzone}"; return 0; }
 
