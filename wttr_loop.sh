@@ -108,7 +108,7 @@ _get_date () {
     #### this function generates the date to be added to the
     #### output
     #### 
-    printf "%b\n"\
+    printf " %b\n"\
     ""\
     "# $(TZ=${_tzone:-${_utc}} date -R)"\
     ""
@@ -191,7 +191,7 @@ _run_main () {
     (( VERYVERB == TRUE )) && set -x
     (( VERBOSE == TRUE )) && { _get_name_version "${0}"; return 0; }
 
-    (( _date == TRUE )) &&  { _get_date "${_tzone}"; return 0; }
+    (( _date == TRUE )) &&  { _get_date "${_tzone}"; }
 
     #############################################################
     #### asign the remaining positional arguments
