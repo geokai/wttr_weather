@@ -78,17 +78,6 @@ _configure_wttr_loop () {
     #### 
     CFILE="${1}"
     if [[ -f ${CFILE} ]]; then
-        if (( VERBOSE == TRUE )); then
-            printf "  %b\n"\
-                   ""\
-                   "# Configuration   file: ${CFILE}"\
-                   ""\
-                   "# Config file contents: "\
-                   ""
-            printf "%b\n"\
-                   "$(cat ${CFILE})"\
-                   ""
-        fi
         # source config file
         . ${CFILE}
     else
@@ -126,10 +115,19 @@ _get_name_version () {
 }
 
 
+_print_config_file () {
+    printf "  %b\n" "# configuateion file: ${CONF_FILE}"\
+    ""\
+    "$(cat ${CONF_FILE})"\
+    ""
+    return 0
+}
+
+
 _run_main () {
-    #############################################################
-    #### main function
-    #### 
+#############################################################
+#### main function
+#### 
 
     #############################################################
     #### asign main variables
@@ -164,11 +162,8 @@ _run_main () {
             d) _date="${TRUE}"; _tzone="${2}" ;;
             v) VERBOSE="${TRUE}" ;;
             V) VERYVERB="${TRUE}" ;;
-            c) printf "  %b\n" "" "# configuateion file: ${CONF_FILE}" ""\
-               && return 0
-            ;;
-            h) _usage "${0}" "${VERSION}" && return 1
-            ;;
+            c) _print_config_file && return 0 ;;
+            h) _usage "${0}" "${VERSION}" && return 1 ;;
             *) printf "  %b\n" "" "# unknown option: ${1}" ""
                _usage "${0}" "${VERSION}" && return 1
             ;;
