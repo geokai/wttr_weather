@@ -117,18 +117,18 @@ _get_name_version () {
 
 _print_config_file () {
     printf "  %b\n" "# configuateion file: ${CONF_FILE}"\
-    ""\
-    "$(cat ${CONF_FILE})"\
+    ""
+    printf "%b\n" "Config file contents:"
+    printf "%b\n" "$(cat ${CONF_FILE})"\
     ""
     return 0
 }
 
 
 _run_main () {
-#############################################################
-#### main function
-#### 
-
+    #############################################################
+    #### main function
+    #### 
     #############################################################
     #### asign main variables
     #### 
@@ -163,7 +163,7 @@ _run_main () {
             v) VERBOSE="${TRUE}" ;;
             V) VERYVERB="${TRUE}" ;;
             c) _print_config_file && return 0 ;;
-            h) _usage "${0}" "${VERSION}" && return 1 ;;
+            h) _usage "${0}" "${VERSION}" && return 0 ;;
             *) printf "  %b\n" "" "# unknown option: ${1}" ""
                _usage "${0}" "${VERSION}" && return 1
             ;;
@@ -186,7 +186,7 @@ _run_main () {
     (( VERYVERB == TRUE )) && set -x
     (( VERBOSE == TRUE )) && { _get_name_version "${0}"; return 0; }
 
-    (( _date == TRUE )) &&  { _get_date "${_tzone}"; }
+    # (( _date == TRUE )) &&  { _get_date "${_tzone}"; }
 
     #############################################################
     #### asign the remaining positional arguments
@@ -207,9 +207,11 @@ _run_main () {
     #### 
     for i in "${!_locs[@]}"; do
         # TODO implement <_date> function
-        wttr_cron ~${_locs[i]}?QM0 ${_dir}${_locs[i]%\+*}.txt;
+        (( _date == TRUE )) &&  { _get_date "${_tzone}"; }
+        wttr_cron ~${_locs[i]}?q0 ${_dir}${_locs[i]%\+*}.txt;
         [ "${i}" -lt $((${#_locs[@]}-1)) ] && sleep ${_interval};
     done
+    return 0
 
 } # endo of main function
 

@@ -13,7 +13,7 @@
 # Author: George Kaimakis
 
 get_wttr () {
-    curl wttr.in/$1
+    curl wttr.in/$1 > $2
 }
 
 
