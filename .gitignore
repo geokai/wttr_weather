@@ -59,6 +59,7 @@ docs/_build/
 target/
 
 venv
+cache/
 
 # vim swap files
 .*.swp
